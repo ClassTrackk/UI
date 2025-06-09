@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { DarkThemeToggle } from "flowbite-react";
 import { useDispatch } from 'react-redux';
@@ -19,7 +18,6 @@ export const Header = () => {
             alignItems: 'center',
             padding: '1rem'
         }}>
-            {/* Logo */}
             <h1 className="text-2xl font-bold text-green-600">ClassTrack</h1>
      
             <Group gap="md" 
