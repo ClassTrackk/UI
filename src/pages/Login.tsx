@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login, logout } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/ui/header';
 
+const isDevOrTest = import.meta.env.MODE !== 'production';
+
 const Login = () => {
-  const [username, setUsername] = useState('');
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (isDevOrTest) {
+      dispatch(login('test-user'));
+      navigate('/'); 
+    }
+  }, [dispatch]);
+  const [username, setUsername] = useState('');
+
   const navigate = useNavigate();
   const handleLogin = () => {
-    if (username.trim()) {
-      dispatch(login(username));
-      navigate('/');
-    }
+  //   if (username.trim()) {
+  //     dispatch(login(username));
+  //     navigate('/');
+  //   }
   };
 
   return (
