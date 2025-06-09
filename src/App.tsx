@@ -1,9 +1,27 @@
-import { DarkThemeToggle } from "flowbite-react";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import { ProtectedRoute } from './routes/ProtectedRoute';
 
 export default function App() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-white px-4 py-24 dark:bg-gray-900">
-      <div className="absolute inset-0 size-full">
+       <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
+      {/* <div className="absolute inset-0 size-full">
         <div className="relative h-full w-full select-none">
           <img
             className="absolute right-0 min-w-dvh dark:hidden"
@@ -16,12 +34,7 @@ export default function App() {
             src="/pattern-dark.svg"
           />
         </div>
-      </div>
-      <div className="absolute top-4 right-4">
-        <DarkThemeToggle />
-      </div>
-
-     
+      </div> */}
     </main>
   );
 }
