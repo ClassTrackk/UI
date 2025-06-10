@@ -3,31 +3,30 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import listPlugin from '@fullcalendar/list';
-import '@fullcalendar/daygrid/main.css';
-import '@fullcalendar/timegrid/main.css';
-import '@fullcalendar/list/main.css';
-
 
 const CalendarComponent = () => {
   return (
-    <div className="p-4 bg-gray-900 text-white min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">FullCalendar with Tailwind</h1>
-      <div className="bg-white rounded-xl shadow-lg p-4 text-black">
+    <div className="p-4 bg-gray-900 text-white min-h-screen ">
+      <div className="h-[400px] md:h-[600px] lg:h-[600px] w-200 mx-auto bg-white rounded-xl shadow-lg p-4 text-black">
         <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-          initialView="dayGridMonth"
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          initialView="timeGridWeek"
+          // text-green-600
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay',
           }}
-          height="auto"
-          events={[
-            { title: 'Meeting', date: '2025-06-09' },
-            { title: 'Conference', date: '2025-06-13' },
-          ]}
+          height='100%'
+          slotMinTime="08:00:00"
+          slotMaxTime="16:00:00"
+           businessHours={{
+            daysOfWeek: [1, 2, 3, 4, 5, 6], 
+            startTime: '08:00',
+            endTime: '18:00',
+          }}
         />
+          
       </div>
     </div>
   );
