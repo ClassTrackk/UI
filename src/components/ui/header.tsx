@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation  } from 'react-router-dom';
 import { DarkThemeToggle } from "flowbite-react";
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Group, Button} from '@mantine/core';
 
 export const Header = () => {
+    const location = useLocation();
     const dispatch = useDispatch()
     const handleLogout = () => dispatch(logout());
 
@@ -30,15 +31,15 @@ export const Header = () => {
                        transition: 'all 0.3s ease'
                    }}
                    className="hover:shadow-[0_0_8px_2px_rgba(255,255,255,0.5)]">
-                <Link to="/" className="text-gray-700 hover:text-green-600 font-medium transition">
-                    Dashboard
-                </Link>
-                <Link to="/login" className="text-gray-700 hover:text-green-600 font-medium transition">
-                    Login
-                </Link>
-                <Link to="/register" className="text-gray-700 hover:text-green-600 font-medium transition">
-                    Register
-                </Link>
+                {location.pathname === '/Account' ? (
+                    <Link to="/" className="text-gray-700 hover:text-green-600 font-medium transition">
+                        Dashboard
+                    </Link>
+                    ) : (
+                    <Link to="/Account" className="text-gray-700 hover:text-green-600 font-medium transition">
+                        Account
+                    </Link>
+                )}
             </Group>
             
         
