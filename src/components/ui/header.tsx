@@ -13,24 +13,21 @@ export const Header = () => {
     const handleLogout = () => dispatch(logout());
 
     return (
-        <header style={{ 
-            display: 'grid', 
-            gridTemplateColumns: '3fr auto 5fr', 
-            alignItems: 'center',
-            padding: '1rem'
-        }}>
+    <header className="absolute top-0 left-0 right-0 z-50 bg grid grid-cols-[1fr_auto_1fr] items-center p-4">
+        <div className="flex items-center gap-4">
             <h1 className="text-2xl font-bold text-green-600">ClassTrack</h1>
-     
-            <Group gap="md" 
-                   p="md" 
-                   style={{
-                       border: '1px solid white',
-                       backgroundColor: 'transparent',
-                       color: 'white',
-                       borderRadius: '8px',
-                       transition: 'all 0.3s ease'
-                   }}
-                   className="hover:shadow-[0_0_8px_2px_rgba(255,255,255,0.5)]">
+        </div>
+
+        <div><Group gap="md"
+                p="md"
+                style={{
+                    border: '1px solid white',
+                    backgroundColor: 'transparent',
+                    color: 'white',
+                    borderRadius: '8px',
+                    transition: 'all 0.3s ease'
+                }}
+                className="hover:shadow-[0_0_8px_2px_rgba(255,255,255,0.5)]">
                 {location.pathname === '/Account' ? (
                     <Link to="/" className="text-gray-700 hover:text-green-600 font-medium transition">
                         Dashboard
@@ -40,18 +37,57 @@ export const Header = () => {
                         Account
                     </Link>
                 )}
-            </Group>
-            
-        
-            <Group gap="xs" justify="flex-end">
-                <Button color="red" variant="outline" onClick={() => handleLogout()}>
-                    <FontAwesomeIcon icon={faRightFromBracket} />
-                </Button>
-                <DarkThemeToggle />
-            </Group>
-        </header>
+            </Group></div>
+
+        <Group gap="xs" justify="flex-end">
+            <Button color="red" variant="outline" onClick={() => handleLogout()}>
+                <FontAwesomeIcon icon={faRightFromBracket} />
+            </Button>
+            <DarkThemeToggle />
+        </Group>
+    </header>
     );
 };
+
+//   <header style={{ 
+        //     display: 'grid', 
+        //     gridTemplateColumns: '3fr auto 5fr', 
+        //     alignItems: 'center',
+        //     padding: '1rem'
+        // }}>
+        //     <h1 className="text-2xl font-bold text-green-600">ClassTrack</h1>
+     
+        //     <Group gap="md" 
+        //            p="md" 
+        //            style={{
+        //                border: '1px solid white',
+        //                backgroundColor: 'transparent',
+        //                color: 'white',
+        //                borderRadius: '8px',
+        //                transition: 'all 0.3s ease'
+        //            }}
+        //            className="hover:shadow-[0_0_8px_2px_rgba(255,255,255,0.5)]">
+        //         {location.pathname === '/Account' ? (
+        //             <Link to="/" className="text-gray-700 hover:text-green-600 font-medium transition">
+        //                 Dashboard
+        //             </Link>
+        //             ) : (
+        //             <Link to="/Account" className="text-gray-700 hover:text-green-600 font-medium transition">
+        //                 Account
+        //             </Link>
+        //         )}
+        //     </Group>
+            
+        
+        //     <Group gap="xs" justify="flex-end">
+        //         <Button color="red" variant="outline" onClick={() => handleLogout()}>
+        //             <FontAwesomeIcon icon={faRightFromBracket} />
+        //         </Button>
+        //         <DarkThemeToggle />
+        //     </Group>
+        // </header>
+
+
 
 
 
@@ -101,3 +137,4 @@ p-2 mb-4 border border-white bg-transparent text-white rounded outline-none tran
           />
         </div>
       </div> */}
+        

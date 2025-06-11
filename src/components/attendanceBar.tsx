@@ -62,13 +62,13 @@ const AttendanceBar: React.FC<HorizontalCardBarProps> = ({
   };
 
   return (
-    <div className={`w-full max-w-6xl mx-auto ${className}`}>
+    <div className={`w-full max-w-2xl mx-auto ${className} `}>
       {/* Barra orizzontale principale */}
-      <div className="bg-gradient-to-r from-green-600 to-green-500 rounded-full p-6 shadow-2xl">
+      <div className="bg-gradient-to-r from-green-600 to-green-500 rounded-full p-6 shadow-2xl z-20">
         {/* Container interno con forma arrotondata */}
-        <div className="bg-gray-100 rounded-full p-4 shadow-inner">
+        <div className="bg-gray-100 rounded-full p-4 shadow-inner z-20">
           {/* Container delle card */}
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide px-4 py-2">
+          <div className="flex gap-4 overflow-x-auto hide-scrollbar px-4 py-2">
             {cards.map((card) => (
               <div
                 key={card.id}
@@ -80,35 +80,12 @@ const AttendanceBar: React.FC<HorizontalCardBarProps> = ({
                   <span className="text-2xl">{card.icon}</span>
                 </div>
                 
-                {/* Contenuto della card */}
-                <div className="text-center">
-                  <h3 className="font-bold text-gray-800 text-lg mb-1 group-hover:text-green-600 transition-colors duration-300">
-                    {card.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {card.description}
-                  </p>
-                </div>
-                
-                {/* Indicatore di stato */}
-                <div className="flex justify-center mt-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
       
-      {/* Barra di navigazione aggiuntiva
-      <div className="flex justify-center mt-6 gap-2">
-        {cards.map((_, index) => (
-          <div 
-            key={index}
-            className="w-2 h-2 bg-green-300 rounded-full hover:bg-green-500 transition-colors duration-300 cursor-pointer"
-          ></div>
-        ))}
-      </div> */}
     </div>
   );
 };
