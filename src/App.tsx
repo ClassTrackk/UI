@@ -1,22 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import { ProtectedRoute } from './routes/ProtectedRoute';
+import AppRoutes from './routes';
+
 
 export default function App() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white px-4 py-24 dark:bg-gray-900">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            {/* Qui puoi mettere altre route protette */}
-          </Route>
-
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-white px-4 py-24 dark:bg-gray-900">   
+         <BrowserRouter>
+        <AppRoutes />
       </BrowserRouter>
     </main>
   );

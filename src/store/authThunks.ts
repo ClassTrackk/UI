@@ -1,17 +1,20 @@
-// src/store/authThunks.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../api/axios';
 import { login, logout } from './authSlice';
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser',
+  'auth/login',
   async ({ email, password }: { email: string; password: string }, thunkAPI) => {
     try {
-      await api.post('/auth/login', { email, password });
-      const res = await api.get('/auth/profile');
+      const loginRes  = await api.post('/auth/login', { email, password });
+      const userId = loginRes.data.id
+      const res = await api.get(`/users/${userId}`);
+      localStorage.setItem('userId', userId);
+      console.log(res)
       thunkAPI.dispatch(login(res.data.email));
     } catch (err) {
-      return thunkAPI.rejectWithValue('Login failed' + {err} );
+      console.error(err);
+      return thunkAPI.rejectWithValue('Login failed');
     }
   }
 );

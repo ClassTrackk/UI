@@ -1,17 +1,14 @@
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
-// import { RootState } from '../store';
+import { ReactNode } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { RootState } from '../store';
 
-// export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-//   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-//   return isLoggedIn ? children : <Navigate to="/login" replace />;
-// };
+interface ProtectedRouteProps {
+  children: ReactNode;
+}
 
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAppSelector } from '../store/hooks';
+export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
-export const ProtectedRoute = () => {
-  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
 };

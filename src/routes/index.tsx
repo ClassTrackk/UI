@@ -1,10 +1,11 @@
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
-import ErrorPage from '../pages/ErrorPage';
 import GradesPage from '../pages/GradesPage';
+import Account from '../pages/Account';
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -16,7 +17,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-            <Route
+      <Route
         path="/Grades"
         element={
           <ProtectedRoute>
@@ -24,8 +25,15 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/Account"
+        element={
+          <ProtectedRoute>
+            <Account />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/login" element={<Login />} />
-      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }
