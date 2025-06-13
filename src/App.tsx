@@ -6,21 +6,21 @@ import { ProtectedRoute } from './routes/ProtectedRoute';
 export default function App() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-white px-4 py-24 dark:bg-gray-900">
-       <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Dashboard />} />
+            {/* Qui puoi mettere altre route protette */}
+          </Route>
 
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
+    </main>
+  );
+}
       {/* <div className="absolute inset-0 size-full">
         <div className="relative h-full w-full select-none">
           <img
@@ -35,6 +35,3 @@ export default function App() {
           />
         </div>
       </div> */}
-    </main>
-  );
-}
