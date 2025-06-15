@@ -1,8 +1,10 @@
-import api from "../api/axios";
-interface Corso {
+import api from '../api/axios';
+
+export interface Corso {
   id: number;
   nome: string;
 }
+
 export interface Voto {
   id: number;
   nome: string;
@@ -13,7 +15,6 @@ export interface Voto {
 }
 
 export const gradesService = {
-  // Recupera tutti i voti di uno studente
   getStudentGrades: async (studentId: number): Promise<Voto[]> => {
     try {
       const res = await api.get(`/voti/studente/${studentId}`);
@@ -22,5 +23,5 @@ export const gradesService = {
       console.error('Errore nel recupero voti:', error);
       throw error;
     }
-  },
-}
+  }
+};

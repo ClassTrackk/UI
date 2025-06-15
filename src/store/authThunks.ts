@@ -10,7 +10,6 @@ export const loginUser = createAsyncThunk(
       const userId = loginRes.data.id
       const res = await api.get(`/users/${userId}`);
       localStorage.setItem('userId', userId);
-      console.log(res)
       thunkAPI.dispatch(login(res.data.email));
     } catch (err) {
       console.error(err);

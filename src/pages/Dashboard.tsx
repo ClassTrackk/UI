@@ -11,6 +11,7 @@ const Dashboard = () => {
   const handleGradesPage = () => {
     navigate('/Grades');
   };
+  const storedUserId = Number(localStorage.getItem('userId'));
 
   return (
     <div className="flex flex-col ">
@@ -27,7 +28,7 @@ const Dashboard = () => {
               className="flex-1 cursor-pointer"
               onClick={handleGradesPage}
             >
-              <GradesChart />
+              <GradesChart studentId={storedUserId}/>
             </div>
           </div>
 

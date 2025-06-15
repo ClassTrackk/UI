@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../store/hooks';
 import { loginUser } from '../store/authThunks';
 import { useNavigate } from 'react-router-dom';
