@@ -21,19 +21,20 @@ export const Header = () => {
         <div><Group gap="md"
                 p="md"
                 style={{
-                    border: '1px solid white',
+                    border: '1px solid',
+                    borderColor: '#16a34a',
                     backgroundColor: 'transparent',
                     color: 'white',
                     borderRadius: '8px',
                     transition: 'all 0.3s ease'
                 }}
-                className="hover:shadow-[0_0_8px_2px_rgba(255,255,255,0.5)]">
+                className="hover:shadow-[0_0_14px_2px_rgba(22,163,74,0.5)]">
                 {location.pathname === '/' ? (
-                    <Link to="/Account" className="text-gray-700 hover:text-green-600 font-medium transition">
+                    <Link to="/Account" className="text-gray-500 hover:text-green-600 font-medium transition">
                         Account
                     </Link>
                     ) : (
-                    <Link to="/" className="text-gray-700 hover:text-green-600 font-medium transition">
+                    <Link to="/" className="text-gray-500 hover:text-green-600 font-medium transition">
                         Dashboard
                     </Link>
                 )}

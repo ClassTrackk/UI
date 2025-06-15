@@ -13,11 +13,13 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col ">
       <Header />
       <div className="flex-1 p-4 sm:p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-          <div className="flex flex-col gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"> */}
+          <div className="flex flex-col gap-4 sm:gap-6 lg:col-span-2">
+          {/* <div className="flex flex-col gap-4 sm:gap-6"> */}
             <div className="w-full">
               <AttendanceBar />
             </div>
@@ -29,11 +31,11 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 sm:gap-6">
+          <div className="flex flex-col gap-4 sm:gap-6 lg:col-span-3">
+          {/* <div className="flex flex-col gap-4 sm:gap-6"> */}
             <div className="w-full">
               <CalendarComponent />
             </div>
-            <div className="flex-1 min-h-[150px] sm:min-h-[300px]"></div>
           </div>
         </div>
       </div>

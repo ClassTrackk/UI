@@ -40,9 +40,9 @@ const Account = () => {
   return (
     <div>
         <Header/>
-        <h1 className="text-3xl text-center font-bold text-white">Account</h1>
+        <h1 className="text-3xl text-center font-bold text-gray-600 dark:text-white">Account</h1>
  <div className="flex justify-center items-center rounded-xl">
-      <div className="max-w-sm mx-auto bg-white border border-green-600 rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+      <div className="max-w-sm mx-auto bg-green-100 border-4 border-green-600 rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4 dark:bg-white">
         <div className="p-6">
           <div className="flex flex-col items-center">
             <div className="flex-shrink-0 bg-indigo-500 rounded-full p-3 mb-4">

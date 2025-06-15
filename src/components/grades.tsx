@@ -1,12 +1,12 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface Grade {
   id: number;
   subject: string;
   grade: number;
   date: string;
-  weight?: number; // Peso del voto (opzionale)
+  weight?: number;
 }
 
 interface GradesChartProps {
@@ -16,26 +16,43 @@ interface GradesChartProps {
   className?: string;
 }
 
+const getColorBasedOnAverage = (average: number): string => {
+  if (average < 5) {
+    return '#EF4444'; 
+  } else if (average >= 5 && average < 6) {
+    return '#F59E0B'; 
+  } else {
+    return '#10B981'; 
+  }
+};
+
+const getColorBasedOnAverageText = (average: number): string => {
+  if (average < 5) {
+    return 'red-600'; 
+  } else if (average >= 5 && average < 6) {
+    return 'orange-600'; 
+  } else {
+    return 'green-600'; 
+  }
+};
+
 const GradesChart = ({
   grades = [
-    { id: 1, subject: 'Matematica', grade: 8.5, date: '2024-01-15', weight: 1 },
+    { id: 1, subject: 'Matematica', grade: 2, date: '2024-01-15', weight: 1 },
     { id: 2, subject: 'Italiano', grade: 7.8, date: '2024-01-16', weight: 1 },
     { id: 3, subject: 'Storia', grade: 9.2, date: '2024-01-17', weight: 1 },
     { id: 4, subject: 'Inglese', grade: 8.0, date: '2024-01-18', weight: 1 },
-    { id: 5, subject: 'Scienze', grade: 7.5, date: '2024-01-19', weight: 1 },
+    { id: 5, subject: 'Scienze', grade: 3, date: '2024-01-19', weight: 1 },
     { id: 6, subject: 'Geografia', grade: 8.8, date: '2024-01-20', weight: 1 },
     { id: 7, subject: 'Matematica', grade: 9.0, date: '2024-01-22', weight: 1 },
     { id: 8, subject: 'Italiano', grade: 8.2, date: '2024-01-23', weight: 1 },
   ],
-  chartType = 'bar',
-  showAverage = true,
   className = ""
 }) => {
 
-  // Calcola le medie per materia
   const calculateAverages = () => {
     const subjectGrades: { [key: string]: { grade: number; weight: number; }[] } = {};
-    
+
     grades.forEach(grade => {
       if (!subjectGrades[grade.subject]) {
         subjectGrades[grade.subject] = [];
@@ -55,26 +72,9 @@ const GradesChart = ({
         subject,
         average: parseFloat(average.toFixed(2)),
         totalGrades: gradesList.length,
-        color: getSubjectColor(subject)
+        fill: getColorBasedOnAverage(average)
       };
     });
-  };
-
-  // Assegna colori alle materie
-  const getSubjectColor = (subject: string): string => {
-    const colors: { [key: string]: string } = {
-      'Matematica': '#3B82F6',
-      'Italiano': '#EF4444',
-      'Storia': '#F59E0B',
-      'Inglese': '#10B981',
-      'Scienze': '#8B5CF6',
-      'Geografia': '#F97316',
-      'Fisica': '#06B6D4',
-      'Chimica': '#84CC16',
-      'Arte': '#EC4899',
-      'Musica': '#6366F1'
-    };
-    return colors[subject] || '#6B7280';
   };
 
   const calculateGeneralAverage = (): number => {
@@ -86,7 +86,7 @@ const GradesChart = ({
   const averagesData = calculateAverages();
   const generalAverage = calculateGeneralAverage();
 
-  const CustomTooltip = ({ active, payload, label }: any) => { 
+  const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
@@ -105,67 +105,47 @@ const GradesChart = ({
   };
 
   return (
-    <div className={`bg-white h-97 rounded-lg shadow-lg p-6 ${className}`}>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-blue-50 p-3 rounded-lg">
-            <h3 className="text-blue-800 font-semibold text-sm">Media Generale</h3> 
-            <p className="text-xl font-bold text-blue-600">{generalAverage}</p> 
-          </div>
-          <div className="bg-blue-50 p-3 rounded-lg"> 
-            <h3 className="text-blue-800 font-semibold text-sm">Materie</h3>
-            <p className="text-xl font-bold text-blue-600">{averagesData.length}</p> 
-          </div>
-          <div className="bg-green-50 p-3 rounded-lg"> 
-            <h3 className="text-green-800 font-semibold text-sm">Voti Totali</h3>
-            <p className="text-xl font-bold text-green-600">{grades.length}</p> 
-          </div>
-          <div className="bg-purple-50 p-3 rounded-lg"> 
-            <h3 className="text-purple-800 font-semibold text-sm">Media Più Alta</h3> 
-            <p className="text-xl font-bold text-purple-600">
-              {averagesData.length > 0 ? Math.max(...averagesData.map(d => d.average)) : 'N/A'}
-            </p> 
-          </div>
+    <div className={`bg-green-100 w-full max-w-7xl mx-auto rounded-lg shadow-lg p-4 sm:p-6 flex flex-col dark:bg-white   ${className}`} style={{ aspectRatio: '16/10', minHeight: '300px' }}>
+      <div className={`grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 mb-3 sm:mb-4 lg:mb-6`}>
+        <div className={`p-2 sm:p-3 rounded-lg bg-purple-50 text-${getColorBasedOnAverageText(generalAverage)} bg-${getColorBasedOnAverageText(generalAverage)}`}>
+          <h3 className="font-semibold text-xs sm:text-sm">Media Generale</h3>
+          <p className="text-lg sm:text-xl font-bold">{generalAverage}</p>
         </div>
-      <div className="h-96">
-        <ResponsiveContainer width="100%" height="80%">
-          {chartType === 'line' ? (
-            <LineChart data={averagesData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis 
-                dataKey="subject" 
-                angle={-45}
-                textAnchor="end"
-                height={100}
-                interval={0}
-              />
-              <YAxis 
-                domain={[0, 10]}
-                tickCount={11}
-              />
-              <Tooltip content={<CustomTooltip />} />
-            </LineChart>
-          ) : (
-          <BarChart data={averagesData} margin={{ top: 20, right: 30, left: 20, bottom: 5  }}>
-              <XAxis 
-                dataKey="subject" 
-                angle={-45}
-                textAnchor="end"
-                height={100}
-                interval={0}
-                tick={{ fontSize: 12 }}
-              />
-              <YAxis 
-                domain={[0, 10]}
-                tickCount={11}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar 
-                dataKey="average" 
-                name="Media Voti" 
-                radius={[4, 4, 0, 0]}
-              />
-            </BarChart>
-          )}
+        <div className="bg-purple-50 p-2 sm:p-3 rounded-lg text-purple-900">
+          <h3 className="font-semibold text-xs sm:text-sm text-purple-600">Materie</h3>
+          <p className="text-lg sm:text-xl font-bold ">{averagesData.length}</p>
+        </div>
+        <div className="bg-purple-50 p-2 sm:p-3 rounded-lg">
+          <h3 className=" font-semibold text-xs sm:text-sm">Voti Totali</h3>
+          <p className="text-lg sm:text-xl font-bold ">{grades.length}</p>
+        </div>
+        <div className="bg-purple-50 p-2 sm:p-3 rounded-lg">
+          <h3 className=" font-semibold text-xs sm:text-sm">Media Più Alta</h3>
+          <p className="text-lg sm:text-xl font-bold text-purple-600">
+            {averagesData.length > 0 ? Math.max(...averagesData.map(d => d.average)) : 'N/A'}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex-1 min-h-0">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={averagesData} margin={{ top: 20, right: 30, left: 20 }}>
+            <XAxis
+              dataKey="subject"
+              angle={-45}
+              textAnchor="end"
+              height={100}
+              interval={0}
+              tick={{ fontSize: 11 }}
+            />
+            <YAxis domain={[0, 10]} tickCount={11} />
+            <Tooltip content={<CustomTooltip />} />
+            <Bar
+              dataKey="average"
+              name="Media Voti"
+              radius={[4, 4, 0, 0]}
+            />
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </div>
