@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
 import { faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { Group, Button} from '@mantine/core';
 
 export const Header = () => {
@@ -18,7 +17,10 @@ export const Header = () => {
             <h1 className="text-2xl font-bold text-green-600">ClassTrack</h1>
         </div>
 
-        <div><Group gap="md"
+        {location.pathname !== '/login' && (
+            <div>
+                <Group
+                gap="md"
                 p="md"
                 style={{
                     border: '1px solid',
@@ -26,25 +28,31 @@ export const Header = () => {
                     backgroundColor: 'transparent',
                     color: 'white',
                     borderRadius: '8px',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
                 }}
-                className="hover:shadow-[0_0_14px_2px_rgba(22,163,74,0.5)]">
+                className="hover:shadow-[0_0_14px_2px_rgba(22,163,74,0.5)]"
+                >
                 {location.pathname === '/' ? (
                     <Link to="/Account" className="text-gray-500 hover:text-green-600 font-medium transition">
-                        Account
+                    Account
                     </Link>
-                    ) : (
+                ) : (
                     <Link to="/" className="text-gray-500 hover:text-green-600 font-medium transition">
-                        Dashboard
+                    Dashboard
                     </Link>
                 )}
-            </Group></div>
+                </Group>
+            </div>
+            )}
 
+        {location.pathname === '/login' && <div></div>}
         <Group gap="xs" justify="flex-end">
-            <Button color="red" variant="outline" onClick={() => handleLogout()}>
-                <FontAwesomeIcon icon={faRightFromBracket} />
-            </Button>
-            <DarkThemeToggle />
+            {location.pathname !== '/login' && (
+                <Button color="red" variant="outline" onClick={() => handleLogout()}>
+                    <FontAwesomeIcon icon={faRightFromBracket} />
+                </Button>
+            )}
+            <DarkThemeToggle className='bg-white dark:bg-gray-900'/>
         </Group>
     </header>
     );

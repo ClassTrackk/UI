@@ -5,6 +5,7 @@ import AttendanceBar from '../components/attendanceBar';
 import GradesChart from '../components/grades';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../store/hooks';
+import ClassesComponent from '../components/classes';
 const Dashboard = () => {
   const navigate = useNavigate();
   const handleGradesPage = () => {
@@ -15,27 +16,49 @@ const Dashboard = () => {
   if (!user) {
     return <p>Utente non autenticato</p>
   }
+
+  // if (user.ruolo === 'tutor') {
+  //   return (
+  //     <div className="flex flex-col">
+  //       <Header />
+  //       <div className="flex-1 p-4 sm:p-6">
+  //         <TutorComponent />
+  //       </div>
+  //       <div className="flex justify-center items-center p-4">
+  //         <Footer />
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <Header />
       <div className="flex-1 p-4 sm:p-6">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
-        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"> */}
           <div className="flex flex-col gap-4 sm:gap-6 lg:col-span-2">
-          {/* <div className="flex flex-col gap-4 sm:gap-6"> */}
-            <div className="w-full">
-              <AttendanceBar />
-            </div>
-            <div
-              className="flex-1 cursor-pointer"
-              onClick={handleGradesPage}
-            >
-              <GradesChart studentId={user.id}/>
-            </div>
+            {user.ruolo === 'Studente' ? (
+              <>
+                <div className="w-full">
+                  <AttendanceBar />
+                </div>
+                <div className="flex-1 cursor-pointer" onClick={handleGradesPage}>
+                  <GradesChart studentId={user.id} />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="w-full">
+                  <ClassesComponent />
+                </div>
+                <div className="flex-1 cursor-pointer" onClick={handleGradesPage}>
+                  <ClassesComponent/>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="flex flex-col gap-4 sm:gap-6 lg:col-span-3">
-          {/* <div className="flex flex-col gap-4 sm:gap-6"> */}
             <div className="w-full">
               <CalendarComponent />
             </div>
