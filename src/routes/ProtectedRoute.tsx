@@ -12,3 +12,10 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
 };
+
+
+export const RedirectAuthenticated = ({ children }: ProtectedRouteProps) => {
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+
+  return isAuthenticated ? <Navigate to="/" replace /> : <>{children}</>;
+};

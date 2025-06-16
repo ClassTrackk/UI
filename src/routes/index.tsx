@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from './ProtectedRoute';
-import { RedirectAuthenticated } from './RedirectAuthenticated';
+import { ProtectedRoute,RedirectAuthenticated } from './ProtectedRoute';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
 import GradesPage from '../pages/GradesPage';
