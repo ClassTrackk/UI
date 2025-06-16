@@ -4,7 +4,7 @@ import { Header } from '../components/ui/header';
 import { Footer } from '../components/ui/footer';
 import { faGraduationCap, faChalkboardTeacher} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { useAppSelector } from '../store/hooks';
 interface User {
   id: string;
   nome: string;
@@ -14,28 +14,11 @@ interface User {
 }
 
 const Account = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [showRole, setShowRole] = useState(false);
-  
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        if (!userId) return;
-
-        const res = await api.get(`/users/${userId}`);
-        console.log(res.data)
-        
-        setUser(res.data);
-      } catch (error) {
-        console.error('Errore nel recupero dati utente:', error);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  if (!user) return <p>Caricamento dati utente...</p>;
+  const user = useAppSelector((state) => state.auth.user)
+  if (!user) {
+    return <p>Utente non autenticato</p>
+  }
 
   return (
     <div>

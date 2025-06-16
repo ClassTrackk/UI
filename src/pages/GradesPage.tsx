@@ -1,10 +1,13 @@
 import { useStudentGrades } from '../hooks/useGrades';
 import { Header } from '../components/ui/header';
 import { Footer } from '../components/ui/footer';
-
+import { useAppSelector } from '../store/hooks';
 const GradesPage = () => {
-  const storedUserId = Number(localStorage.getItem('userId'));
-  const { grades, groupedGrades, statistics, loading, error, refetch } = useStudentGrades(storedUserId);
+  const user = useAppSelector((state) => state.auth.user)
+  if (!user) {
+    return <p>Utente non autenticato</p>
+  }
+  const { grades, groupedGrades, statistics, loading, error, refetch } = useStudentGrades(user.id);
   console.log(grades, groupedGrades, statistics, loading, error, refetch)
   if (loading) return (
     <div>

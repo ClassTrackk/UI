@@ -4,15 +4,17 @@ import CalendarComponent from '../components/calendar';
 import AttendanceBar from '../components/attendanceBar';
 import GradesChart from '../components/grades';
 import { useNavigate } from 'react-router-dom';
-
+import { useAppSelector } from '../store/hooks';
 const Dashboard = () => {
   const navigate = useNavigate();
-
   const handleGradesPage = () => {
     navigate('/Grades');
   };
-  const storedUserId = Number(localStorage.getItem('userId'));
-
+ const user = useAppSelector((state) => state.auth.user)
+//  const storedUserId = Number(localStorage.getItem('userId'));
+  if (!user) {
+    return <p>Utente non autenticato</p>
+  }
   return (
     <div className="flex flex-col ">
       <Header />
@@ -28,7 +30,7 @@ const Dashboard = () => {
               className="flex-1 cursor-pointer"
               onClick={handleGradesPage}
             >
-              <GradesChart studentId={storedUserId}/>
+              <GradesChart studentId={user.id}/>
             </div>
           </div>
 

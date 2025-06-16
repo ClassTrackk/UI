@@ -10,7 +10,8 @@ export const loginUser = createAsyncThunk(
       const userId = loginRes.data.id
       const res = await api.get(`/users/${userId}`);
       localStorage.setItem('userId', userId);
-      thunkAPI.dispatch(login(res.data.email));
+      thunkAPI.dispatch(login(res.data));
+      console.log(res.data)
     } catch (err) {
       console.error(err);
       return thunkAPI.rejectWithValue('Login failed');
