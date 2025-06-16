@@ -1,6 +1,6 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
-
+import { RedirectAuthenticated } from './RedirectAuthenticated';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
 import GradesPage from '../pages/GradesPage';
@@ -33,7 +33,14 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={
+          <RedirectAuthenticated>
+            <Login />
+          </RedirectAuthenticated>
+        }
+      />
     </Routes>
   );
 }
