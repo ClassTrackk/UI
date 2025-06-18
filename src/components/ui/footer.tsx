@@ -21,12 +21,12 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="flex justify-center items-center bottom-0 content-center bg-green-100 rounded-lg shadow-sm m-4 dark:bg-gray-800 z-10">
-        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <footer className="flex justify-center items-center bottom-0 content-center bg-green-100 rounded-lg shadow-sm  dark:bg-gray-800 z-10">
+        <div className=" mx-auto max-w-screen-xl p-4 md:flex md:items-center ">
           <span className="text-sm text-green-600 sm:text-center dark:text-green-600 mr-10">
             © 2025 <a href="https://github.com/ClassTrackk" className="hover:underline">Github™</a>
           </span>
-          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-green-600 dark:text-green-600 sm:mt-0">
+          <ul className="flex items-center mt-3 text-sm font-medium text-green-600 dark:text-green-600 sm:mt-0">
             {Object.keys(infoMap).map((label) => (
               <li key={label}>
                 <button

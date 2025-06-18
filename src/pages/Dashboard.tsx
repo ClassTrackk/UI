@@ -6,6 +6,7 @@ import GradesChart from '../components/grades';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../store/hooks';
 import ClassesComponent from '../components/classes';
+import UserManager from '../components/TutorComponent';
 const Dashboard = () => {
   const navigate = useNavigate();
   const handleGradesPage = () => {
@@ -16,20 +17,25 @@ const Dashboard = () => {
   if (!user) {
     return <p>Utente non autenticato</p>
   }
+  console.log(user)
 
-  // if (user.ruolo === 'tutor') {
-  //   return (
-  //     <div className="flex flex-col">
-  //       <Header />
-  //       <div className="flex-1 p-4 sm:p-6">
-  //         <TutorComponent />
-  //       </div>
-  //       <div className="flex justify-center items-center p-4">
-  //         <Footer />
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (user.ruolo === 'Tutor') {
+    return (
+    <div className="flex flex-col">
+      <Header />
+
+      <main className="flex-grow flex justify-center items-center p-4 max-h-fit">
+        <div className="w-[100%] px-4">
+          <UserManager />
+        </div>
+      </main>
+
+      <div className="flex justify-center items-center p-4">
+        <Footer />
+      </div>
+    </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">

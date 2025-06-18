@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import api from '../api/axios';
+import { useState } from 'react';
 import { Header } from '../components/ui/header';
 import { Footer } from '../components/ui/footer';
 import { faGraduationCap, faChalkboardTeacher} from '@fortawesome/free-solid-svg-icons';
@@ -50,7 +49,9 @@ const Account = () => {
         </div>
       </div>
     </div>
-        <Footer/>    
+        <div className="flex justify-center items-center p-4">
+          <Footer />
+      </div>
     </div>
   );
 };
