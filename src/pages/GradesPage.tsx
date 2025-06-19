@@ -8,7 +8,7 @@ const GradesPage = () => {
     return <p>Utente non autenticato</p>
   }
   const { grades, groupedGrades, statistics, loading, error, refetch } = useStudentGrades(user.id);
-  console.log(grades, groupedGrades, statistics, loading, error, refetch)
+  console.log(groupedGrades)
   if (loading) return (
     <div>
       <Header/>

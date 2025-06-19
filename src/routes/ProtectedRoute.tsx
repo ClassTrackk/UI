@@ -9,13 +9,18 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  const user = useSelector((state: RootState) => state.auth.user);
+  
+  const hasQuickLogin = user && user.id && !isAuthenticated;
+  
+  return (isAuthenticated || hasQuickLogin) ? <>{children}</> : <Navigate to="/login" />;
 };
-
 
 export const RedirectAuthenticated = ({ children }: ProtectedRouteProps) => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-
-  return isAuthenticated ? <Navigate to="/" replace /> : <>{children}</>;
+  const user = useSelector((state: RootState) => state.auth.user);
+  
+  const hasQuickLogin = user && user.id && !isAuthenticated;
+  
+  return (isAuthenticated || hasQuickLogin) ? <Navigate to="/" replace /> : <>{children}</>;
 };

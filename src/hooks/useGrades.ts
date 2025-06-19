@@ -11,6 +11,7 @@ export const useStudentGrades = (studentId: number) => {
       setLoading(true);
       setError(null);
       const data = await gradesService.getStudentGrades(studentId);
+      console.log(data)
       setGrades(data);
     } catch (err) {
       setError('Errore nel caricamento dei voti');

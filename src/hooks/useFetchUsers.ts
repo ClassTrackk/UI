@@ -29,9 +29,9 @@ const useUsers = () => {
       const data = await service.getUsers();
       setUsers(data);
     },
-    // createUser: UserService.createUser,
-    // updateUser: UserService.updateUser,
-    // deleteUser: UserService.deleteUser,
+    createUser: service.createUser,
+    updateUser: service.updateUser,
+    deleteUser: service.deleteUser,
   };
 };
 
