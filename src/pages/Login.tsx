@@ -84,7 +84,7 @@ const Login = () => {
       
       <div className="mb-8">
         <AnimatedImage 
-          src="/public/n6.png"
+          src="/n6.png"
           alt="Logo animato"
           size="lg"
           animation="float"

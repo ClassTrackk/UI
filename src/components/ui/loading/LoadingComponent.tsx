@@ -5,7 +5,7 @@ export const LoadingComponent = () => {
     <div className="flex justify-center items-center p-4">
        <div className="mb-8">
           <AnimatedImage 
-            src="/public/n3.png"
+            src="/n3.png"
             alt="Logo animato"
             size = 'lg'
             animation="glow"
