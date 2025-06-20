@@ -10,7 +10,7 @@ import UserManager from '../components/TutorComponent';
 import { useEffect, useState} from 'react';
 import api from '../api/axios';
 import { setUser } from '../store/authSlice';
-
+import AnimatedImage from '../components/ui/AnimatedImage';
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -75,7 +75,26 @@ const storedUserId = Number(localStorage.getItem('userId'));
         className="block absolute top-0 left-0 object-cover bg-auto bg-center max-h-screen  dark:hidden" 
       />
       <Header />
-
+      <div className="mb-8">
+      <AnimatedImage 
+          src="/n1.png"
+          alt="Logo animato"
+          size="lg"
+          animation="swing"
+          speed="slow"
+          className="mx-auto absolute top-50 left-315 z-12"
+        />
+        </div>
+        <div className="mb-8">
+        <AnimatedImage 
+          src="/n1.png"
+          alt="Logo animato"
+          size="sm"
+          animation="scale"
+          speed="normal"
+          className="mx-auto absolute bottom-5 left-315 z-12"
+        />
+      </div>
       <main className="flex-grow flex justify-center items-center p-4">
         <div className="min-h-[40%] px-4">
           <UserManager />
