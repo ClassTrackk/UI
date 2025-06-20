@@ -1,4 +1,3 @@
-import api from '../api/axios';
 
 export interface AttendanceData {
   id: number;

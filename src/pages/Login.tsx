@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useAppDispatch } from '../store/hooks';
 import { loginUser } from '../store/authThunks';
 import { setUser } from '../store/authSlice'; 
 import { useNavigate } from 'react-router-dom';
