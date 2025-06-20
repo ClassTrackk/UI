@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { AttendanceData } from '../services/frequenceService';
 import { useFrequence } from '../hooks/useFrequence';
 
@@ -93,25 +92,26 @@ const AttendanceBar: React.FC<AttendanceCarouselProps> = ({
     <div className={`w-full max-w-2xl mx-auto ${className}`}>
       <div className="bg-green-100 rounded-full border-4 border-green-600 p-4 shadow-inner z-20 dark:bg-white">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 py-2">
-          {attendanceData.map((attendance) => (
+          {attendanceData && (
             <div
-              key={attendance.id}
-              onClick={() => handleAttendanceClick?.(attendance)}
+              onClick={() => handleAttendanceClick?.(attendanceData)}
               className="bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer flex flex-col items-center group"
             >
-              <div className={`w-12 h-12 ${getAttendanceColor(attendance)} rounded-full flex items-center justify-center text-white text-xl mb-2 group-hover:scale-110 transition-transform duration-300`}>
-                <span className="text-2xl">{getAttendanceIcon(attendance)}</span>
+              <div
+                className={`w-12 h-12 ${getAttendanceColor(attendanceData)} rounded-full flex items-center justify-center text-white text-xl mb-2 group-hover:scale-110 transition-transform duration-300`}
+              >
+                <span className="text-2xl">{getAttendanceIcon(attendanceData)}</span>
               </div>
               <div className="text-center">
                 <p className="text-xs font-semibold text-gray-800 truncate max-w-full">
-                  {attendance.corso.nome}
+                  {attendanceData.corso.nome}
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
-                  {formatDate(attendance.data)}
+                  {formatDate(attendanceData.data)}
                 </p>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>

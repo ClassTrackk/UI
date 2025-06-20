@@ -27,7 +27,7 @@ const storedUserId = Number(localStorage.getItem('userId'));
       if (localStorage.getItem('quickLogin')) {
         setIsLoading(true);
         setApiError('');
-        
+        console.log('Loading:', isLoading,)
         try {
           
           if (storedUserId) {
@@ -44,6 +44,8 @@ const storedUserId = Number(localStorage.getItem('userId'));
         } catch (err) {
           console.error('Errore nel caricamento dati utente:', err);
           setApiError('Errore nel caricamento dei dati utente');
+          console.log('Error:', apiError);
+
         } finally {
           setIsLoading(false);
         }

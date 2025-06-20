@@ -4,13 +4,6 @@ import { Footer } from '../components/ui/footer';
 import { faGraduationCap, faChalkboardTeacher} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppSelector } from '../store/hooks';
-interface User {
-  id: string;
-  nome: string;
-  cognome: string;
-  email: string;
-  ruolo: string;
-}
 
 const Account = () => {
   const [showRole, setShowRole] = useState(false);

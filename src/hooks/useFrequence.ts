@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {AttendanceData, frequencesService } from '../services/frequenceService';
 export const useFrequence = (studentId: number) => {
-  const [Frequence, setFrequence] = useState<AttendanceData[]>([]);
+  const [Frequence, setFrequence] = useState<AttendanceData>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

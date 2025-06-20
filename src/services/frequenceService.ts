@@ -16,7 +16,7 @@ export const frequencesService = {
   getFrequence: async (studentId: number): Promise<AttendanceData> => {
     try {
       const res = await fetch(`/api/studenti/${studentId}/frequenza`);
-      return res.data;
+      return res.json();
     } catch (error) {
       console.error('Errore nel recupero presenze:', error);
       throw error;
