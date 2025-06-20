@@ -5,5 +5,8 @@ import flowbiteReact from "flowbite-react/plugin/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    chunkSizeWarningLimit: 1000, 
+  },
   plugins: [react(), tailwindcss(), flowbiteReact()],
 });
