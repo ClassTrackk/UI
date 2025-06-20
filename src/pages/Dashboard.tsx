@@ -117,7 +117,7 @@ const storedUserId = Number(localStorage.getItem('userId'));
             ) : (
               <>
                 <div className="w-full">
-                  <ClassesComponent />
+                  <ClassesComponent studentId={user.id}/>
                 </div>
               </>
             )}

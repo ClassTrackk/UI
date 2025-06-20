@@ -23,5 +23,14 @@ export const gradesService = {
       console.error('Errore nel recupero voti:', error);
       throw error;
     }
+  },
+  getVotiByProf: async (studentId: number) => {
+    try {
+      const response = await api.get(`/voti/prof/${studentId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Errore nel recupero dei voti:', error);
+      throw error;
+    }
   }
 };
