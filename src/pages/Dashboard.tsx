@@ -106,7 +106,7 @@ const storedUserId = Number(localStorage.getItem('userId'));
             {user.ruolo === 'Studente' ? (
               <>
                 <div className="w-full z-10">
-                  <AttendanceBar />
+                  <AttendanceBar studentId={user.id}/>
                 </div>
                 <div className="flex-1 cursor-pointer" onClick={handleGradesPage}>
                   <GradesChart studentId={user.id} />
@@ -116,9 +116,6 @@ const storedUserId = Number(localStorage.getItem('userId'));
               <>
                 <div className="w-full">
                   <ClassesComponent />
-                </div>
-                <div className="flex-1 cursor-pointer" onClick={handleGradesPage}>
-                  <ClassesComponent/>
                 </div>
               </>
             )}

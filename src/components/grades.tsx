@@ -45,7 +45,6 @@ const GradesSummary: React.FC<GradesSummaryProps> = ({
 }) => {
   const { grades, statistics, loading, error } = useStudentGrades(studentId);
 
-  // Trasforma i dati per il grafico
   const transformGradesForChart = () => {
     if (!grades.length) return [];
 
