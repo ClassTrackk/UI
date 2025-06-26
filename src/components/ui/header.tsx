@@ -5,7 +5,7 @@ import { logout } from '../../store/authSlice';
 import { faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Group, Button} from '@mantine/core';
-
+import AnimatedImage from './AnimatedImage';
 export const Header = () => {
     const location = useLocation();
     const dispatch = useDispatch()
@@ -16,9 +16,17 @@ export const Header = () => {
         <div className="flex items-center gap-4">
             <h1 className="text-2xl font-bold text-green-600">ClassTrack</h1>
         </div>
-
+                <AnimatedImage 
+                    src="/n4.png"
+                    alt="Logo animato"
+                    size="sm"
+                    animation="scale"
+                    speed="normal"
+                    className="mx-auto absolute top-0 right-315 z-12"
+                    />      
         {location.pathname !== '/login' && (
             <div>
+                
                 <Group
                 gap="md"
                 p="md"

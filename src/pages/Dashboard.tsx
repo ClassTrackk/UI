@@ -10,6 +10,7 @@ import UserManager from '../components/TutorComponent';
 import { useEffect, useState } from 'react';
 import api from '../api/axios';
 import { setUser } from '../store/authSlice';
+<<<<<<< HEAD
 
 const mockUsers = [
   {
@@ -42,6 +43,9 @@ const mockUsers = [
   }
 ];
 
+=======
+import AnimatedImage from '../components/ui/AnimatedImage';
+>>>>>>> 478e860420ff5399d30431ec8c792bc129dfa8d0
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -123,6 +127,7 @@ const Dashboard = () => {
 
   if (isLoading) {
     return (
+<<<<<<< HEAD
       <div className="flex flex-col min-h-screen">
         <Header />
         <div className="flex-grow flex justify-center items-center">
@@ -130,6 +135,43 @@ const Dashboard = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-white">Caricamento dashboard...</p>
           </div>
+=======
+    <div className=" flex flex-col">
+       <img 
+        src="/wallpaperDM.png" 
+        alt="Wallpaper DM" 
+        className="hidden absolute top-0 left-0 object-cover bg-auto bg-center max-h-screen dark:block" 
+      />
+      <img 
+        src="/wallpaperWM.png" 
+        alt="Wallpaper WM" 
+        className="block absolute top-0 left-0 object-cover bg-auto bg-center max-h-screen  dark:hidden" 
+      />
+      <Header />
+      <div className="mb-8">
+      <AnimatedImage 
+          src="/n1.png"
+          alt="Logo animato"
+          size="lg"
+          animation="swing"
+          speed="slow"
+          className="mx-auto absolute top-50 left-315 z-12"
+        />
+        </div>
+        <div className="mb-8">
+        <AnimatedImage 
+          src="/n1.png"
+          alt="Logo animato"
+          size="sm"
+          animation="scale"
+          speed="normal"
+          className="mx-auto absolute bottom-5 left-315 z-12"
+        />
+      </div>
+      <main className="flex-grow flex justify-center items-center p-4">
+        <div className="min-h-[40%] px-4">
+          <UserManager />
+>>>>>>> 478e860420ff5399d30431ec8c792bc129dfa8d0
         </div>
         <Footer />
       </div>

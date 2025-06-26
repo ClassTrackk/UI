@@ -81,7 +81,8 @@ const Login = () => {
         className="block absolute top-0 right-0 object-cover bg-auto bg-center max-h-screen  dark:hidden" 
       />
       <Header />
-      
+      <div className="mb-8">
+      </div>
       <div className="mb-8">
         <AnimatedImage 
           src="/n6.png"
