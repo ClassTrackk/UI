@@ -2,57 +2,83 @@ import { useStudentGrades } from '../hooks/useGrades';
 import { Header } from '../components/ui/header';
 import { Footer } from '../components/ui/footer';
 import { useAppSelector } from '../store/hooks';
+
 const GradesPage = () => {
-  const user = useAppSelector((state) => state.auth.user)
+  const user = useAppSelector((state) => state.auth.user);
+
   if (!user) {
-    return <p>Utente non autenticato</p>
+    return <p>Utente non autenticato</p>;
   }
+
   const { grades, groupedGrades, statistics, loading, error, refetch } = useStudentGrades(user.id);
-  console.log(groupedGrades)
-  if (loading) return (
-    <div>
-      <Header/>
-      <main className="rounded-xl border-3 border-green-600 p-6 bg-green-200 dark:bg-white">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Caricamento voti...</p>
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
-  
-  if (error) return (
-    <div>
-      <Header/>
-      <main className="rounded-xl border-3 border-green-600 p-6 bg-green-200 dark:bg-white">
-        <div className="text-center">
-          <div className="text-red-500 mb-4">
-            <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p className="text-lg font-semibold">Errore nel caricamento</p>
-            <p className="text-sm">{error}</p>
+
+  if (loading) {
+    return (
+      <div>
+        <Header />
+        <main className="rounded-xl border-3 border-green-600 p-6 bg-green-200 dark:bg-white">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
+            <p className="mt-2 text-gray-600">Caricamento voti...</p>
           </div>
-          <button 
-            onClick={refetch}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-          >
-            Riprova
-          </button>
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  const mockGrades = [
+    {
+      id: 1,
+      valutazione: 7,
+      dataVerifica: new Date().toISOString(),
+      descrizione: 'Compito di matematica',
+      corso: { id: 1, nome: 'Matematica' }
+    },
+    {
+      id: 2,
+      valutazione: 8,
+      dataVerifica: new Date().toISOString(),
+      descrizione: 'Verifica di storia',
+      corso: { id: 2, nome: 'Storia' }
+    }
+  ];
+
+  const groupedMock = mockGrades.reduce((acc, voto) => {
+    if (!acc[voto.corso.nome]) acc[voto.corso.nome] = [];
+    acc[voto.corso.nome].push(voto);
+    return acc;
+  }, {} as Record<string, typeof mockGrades>);
+
+  const mockStats = {
+    totalGrades: mockGrades.length,
+    average: mockGrades.reduce((acc, v) => acc + v.valutazione, 0) / mockGrades.length,
+    maxGrade: Math.max(...mockGrades.map((v) => v.valutazione)),
+    courseCount: new Set(mockGrades.map((v) => v.corso.nome)).size,
+  };
+
+  const displayedGrades = error ? groupedMock : groupedGrades;
+  const displayedStats = error ? mockStats : statistics;
 
   return (
     <div>
-      <Header/>
+      <Header />
       <main className="rounded-xl border-3 border-green-600 p-6 bg-green-200 dark:bg-white">
 
+        {error && (
+          <div className="text-center text-red-700 mb-6">
+            <p className="text-lg font-bold">⚠ Errore nel caricamento voti – Mostrati dati fittizi</p>
+            <button
+              onClick={refetch}
+              className="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Riprova
+            </button>
+          </div>
+        )}
+
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(groupedGrades).map(([corso, voti]) => (
+          {Object.entries(displayedGrades).map(([corso, voti]) => (
             <div key={corso} className="bg-green-700 text-white rounded-2xl p-4 shadow-lg">
               <h2 className="text-xl font-bold mb-4 text-center">{corso}</h2>
               <div className="flex flex-col gap-3">
@@ -64,14 +90,14 @@ const GradesPage = () => {
                     <p className="text-lg font-semibold">Voto: {voto.valutazione}</p>
                     <p className="text-sm">{new Date(voto.dataVerifica).toLocaleDateString()}</p>
                     <p className="text-xs italic">{voto.descrizione}</p>
-                     </div>
+                  </div>
                 ))}
               </div>
             </div>
           ))}
         </div>
 
-        {grades.length === 0 && (
+        {grades.length === 0 && !error && (
           <div className="text-center py-12 bg-green-200 dark:bg-white">
             <div className="text-gray-400 mb-4">
               <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,19 +111,19 @@ const GradesPage = () => {
 
         <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-green-100 rounded-lg p-3 text-center">
-            <p className="text-2xl font-bold text-green-800">{statistics.totalGrades}</p>
+            <p className="text-2xl font-bold text-green-800">{displayedStats.totalGrades}</p>
             <p className="text-sm text-green-600">Totale voti</p>
           </div>
           <div className="bg-green-100 rounded-lg p-3 text-center">
-            <p className="text-2xl font-bold text-green-800">{statistics.average.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-green-800">{displayedStats.average.toFixed(2)}</p>
             <p className="text-sm text-green-600">Media</p>
           </div>
           <div className="bg-green-100 rounded-lg p-3 text-center">
-            <p className="text-2xl font-bold text-green-800">{statistics.maxGrade}</p>
+            <p className="text-2xl font-bold text-green-800">{displayedStats.maxGrade}</p>
             <p className="text-sm text-green-600">Voto max</p>
           </div>
           <div className="bg-green-100 rounded-lg p-3 text-center">
-            <p className="text-2xl font-bold text-green-800">{statistics.courseCount}</p>
+            <p className="text-2xl font-bold text-green-800">{displayedStats.courseCount}</p>
             <p className="text-sm text-green-600">Corsi</p>
           </div>
         </div>
@@ -108,4 +134,4 @@ const GradesPage = () => {
   );
 };
 
-export default GradesPage
+export default GradesPage;
